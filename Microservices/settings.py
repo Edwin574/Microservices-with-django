@@ -47,8 +47,10 @@ INSTALLED_APPS = [
     'shopping_cart',
     'orders',
     'accounts',
-
 ]
+
+# Custom user model
+AUTH_USER_MODEL = 'accounts.Customer'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

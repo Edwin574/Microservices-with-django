@@ -1,19 +1,17 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from accounts.models import Customer
 
-Customer = get_user_model()
 
 class CustomerSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
-    password2 = serializers.CharField(write_only=True)
+    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
         model = Customer
         fields = ['username', 'email', 'password', 'password2', 'phone_number', 'address']
         extra_kwargs = {
-            'password': {'write_only': True},
-            'password2': {'write_only': True}
+            'password': {'write_only': True}
         }
 
     def validate(self, data):
@@ -30,6 +28,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
+        
+        # Add custom claims
         token['username'] = user.username
         token['email'] = user.email
+        token['phone_number'] = user.phone_number
+        token['address'] = user.address
+        
         return token 

@@ -9,6 +9,9 @@ from Microservices.swagger import (
     register_request, success_response, error_response,
     login_request, login_response
 )
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class HelloView(APIView):
     def get(self, request):
@@ -19,24 +22,21 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = CustomerSerializer
 
     @swagger_auto_schema(
-        request_body=register_request,
+        request_body=CustomerSerializer,
         responses={
-            201: success_response,
+            201: CustomerSerializer,
             400: error_response
         }
     )
-    def create(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(
-            {"message": "User registered successfully"},
-            status=status.HTTP_201_CREATED,
-            headers=headers
-        )
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CustomTokenObtainPairView(TokenObtainPairView):
+class LoginView(TokenObtainPairView):
+    permission_classes = [AllowAny]
     serializer_class = CustomTokenObtainPairSerializer
 
     @swagger_auto_schema(
@@ -49,9 +49,15 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
 class ProfileView(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CustomerSerializer
+
+    def get_object(self):
+        return self.request.user
 
     @swagger_auto_schema(
         responses={
@@ -84,6 +90,9 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     def patch(self, request, *args, **kwargs):
         return super().patch(request, *args, **kwargs)
 
-    def get_object(self):
-        return self.request.user
+class HelloView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({"message": f"Hello, {request.user.username}!"})
 

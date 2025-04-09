@@ -5,16 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="87404b70-460b-4e5c-91fe-863d18c05718" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Microservices.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product_catalog/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopping_cart/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopping_cart/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/wsgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservices/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Microservices/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/env" beforeDir="false" afterPath="$PROJECT_DIR$/env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shopping_cart/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/shopping_cart/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +30,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Dockerfile" />
         <option value="Python Script" />
       </list>
     </option>
@@ -31,6 +38,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Edwin574"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:Edwin574/Microservices-with-django.git",
+    "accountId": "175da0a4-d7c6-4e1b-b1ef-0b66f7854ae6"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -54,6 +73,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/accounts" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Microservices" type="Python.DjangoServer" factoryName="Django server">
       <module name="Microservices" />
@@ -97,7 +121,7 @@
       <option name="presentableId" value="Default" />
       <updated>1744106663085</updated>
       <workItem from="1744106664184" duration="5783000" />
-      <workItem from="1744113722931" duration="4070000" />
+      <workItem from="1744113722931" duration="24622000" />
     </task>
     <servers />
   </component>
