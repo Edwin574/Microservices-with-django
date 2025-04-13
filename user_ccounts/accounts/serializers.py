@@ -3,14 +3,14 @@ from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
-from .models import User, PasswordResetToken, EmailVerificationToken
+from .models import Customer, PasswordResetToken, EmailVerificationToken
 import uuid
 from datetime import timedelta
 from django.utils import timezone
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Customer
         fields = [
             'id', 'username', 'email', 'first_name', 'last_name',
             'phone_number', 'date_of_birth', 'gender',
@@ -25,7 +25,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True, required=True)
 
     class Meta:
-        model = User
+        model = Customer
         fields = [
             'username', 'email', 'password', 'password2',
             'first_name', 'last_name', 'phone_number',
@@ -41,7 +41,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop('password2')
-        user = User.objects.create_user(**validated_data)
+        user = Customer.objects.create_user(**validated_data)
         
         # Create email verification token
         token = str(uuid.uuid4())
@@ -68,7 +68,7 @@ class PasswordResetRequestSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
 
     def validate_email(self, value):
-        if not User.objects.filter(email=value).exists():
+        if not Customer.objects.filter(email=value).exists():
             raise serializers.ValidationError("No user found with this email address.")
         return value
 

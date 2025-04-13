@@ -6,7 +6,7 @@ from .views import (
     PasswordResetConfirmView, EmailVerificationView,
     ResendVerificationEmailView
 )
-
+app_name = 'accounts'
 urlpatterns = [
     # Authentication
     path('register/', RegisterView.as_view(), name='register'),
