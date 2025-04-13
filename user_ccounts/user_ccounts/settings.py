@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -72,13 +72,17 @@ WSGI_APPLICATION = 'user_ccounts.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': str(os.getenv('DATABASES_DEFAULT_NAME')),
+            'USER': str(os.getenv('DATABASES_DEFAULT_USER')),
+            'PASSWORD': str(os.getenv('DATABASES_DEFAULT_PASSWORD')),
+            'HOST': str(os.getenv('DATABASES_DEFAULT_HOST')),
+            'PORT': int(os.getenv('DATABASES_DEFAULT_PORT')),
+        }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
