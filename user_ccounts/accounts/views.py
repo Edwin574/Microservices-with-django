@@ -15,27 +15,12 @@ from .serializers import (
     PasswordResetRequestSerializer, PasswordResetConfirmSerializer,
     EmailVerificationSerializer, CustomTokenObtainPairSerializer
 )
-from drf_yasg.utils import swagger_auto_schema
-from user_ccounts.swagger import (
-    login_request, login_response, error_response,
-    register_request, register_response,
-    password_reset_request, password_reset_confirm,
-    success_response
-)
 
 User = get_user_model()
 
 class RegisterView(APIView):
     permission_classes = [permissions.AllowAny]
 
-    @swagger_auto_schema(
-        request_body=register_request,
-        responses={
-            201: register_response,
-            400: error_response
-        },
-        operation_description="Register a new user account"
-    )
     def post(self, request):
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid():
@@ -64,40 +49,19 @@ class LoginView(TokenObtainPairView):
     permission_classes = [permissions.AllowAny]
     serializer_class = CustomTokenObtainPairSerializer
 
-    @swagger_auto_schema(
-        request_body=login_request,
-        responses={
-            200: login_response,
-            401: error_response
-        },
-        operation_description="Login with username and password"
-    )
+
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
 class ProfileView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    @swagger_auto_schema(
-        responses={
-            200: UserSerializer,
-            401: error_response
-        },
-        operation_description="Get user profile"
-    )
+
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
-    @swagger_auto_schema(
-        request_body=UserSerializer,
-        responses={
-            200: UserSerializer,
-            400: error_response,
-            401: error_response
-        },
-        operation_description="Update user profile"
-    )
+
     def put(self, request):
         serializer = UserSerializer(request.user, data=request.data, partial=True)
         if serializer.is_valid():
@@ -105,29 +69,14 @@ class ProfileView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @swagger_auto_schema(
-        request_body=UserSerializer,
-        responses={
-            200: UserSerializer,
-            400: error_response,
-            401: error_response
-        }
-    )
+
     def patch(self, request, *args, **kwargs):
         return super().patch(request, *args, **kwargs)
 
 class PasswordChangeView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    @swagger_auto_schema(
-        request_body=PasswordChangeSerializer,
-        responses={
-            200: success_response,
-            400: error_response,
-            401: error_response,
-        },
-        operation_description="Change user password"
-    )
+
     def post(self, request):
         serializer = PasswordChangeSerializer(data=request.data)
         if serializer.is_valid():
@@ -141,14 +90,7 @@ class PasswordChangeView(APIView):
 class PasswordResetRequestView(APIView):
     permission_classes = [permissions.AllowAny]
 
-    @swagger_auto_schema(
-        request_body=password_reset_request,
-        responses={
-            200: success_response,
-            400: error_response,
-        },
-        operation_description="Request password reset"
-    )
+
     def post(self, request):
         serializer = PasswordResetRequestSerializer(data=request.data)
         if serializer.is_valid():
@@ -173,14 +115,6 @@ class PasswordResetRequestView(APIView):
 class PasswordResetConfirmView(APIView):
     permission_classes = [permissions.AllowAny]
 
-    @swagger_auto_schema(
-        request_body=password_reset_confirm,
-        responses={
-            200: success_response,
-            400: error_response,
-        },
-        operation_description="Confirm password reset"
-    )
     def post(self, request):
         serializer = PasswordResetConfirmSerializer(data=request.data)
         if serializer.is_valid():
@@ -196,14 +130,7 @@ class PasswordResetConfirmView(APIView):
 class EmailVerificationView(APIView):
     permission_classes = [permissions.AllowAny]
 
-    @swagger_auto_schema(
-        request_body=EmailVerificationSerializer,
-        responses={
-            200: success_response,
-            400: error_response,
-        },
-        operation_description="Verify email address"
-    )
+
     def post(self, request):
         serializer = EmailVerificationSerializer(data=request.data)
         if serializer.is_valid():
@@ -219,14 +146,7 @@ class EmailVerificationView(APIView):
 class ResendVerificationEmailView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    @swagger_auto_schema(
-        responses={
-            200: success_response,
-            400: error_response,
-            401: error_response,
-        },
-        operation_description="Resend verification email"
-    )
+  
     def post(self, request):
         if request.user.is_verified:
             return Response({'error': 'Email already verified'}, status=status.HTTP_400_BAD_REQUEST)
